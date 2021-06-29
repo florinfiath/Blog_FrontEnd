@@ -20,7 +20,7 @@ const AddPost = (props) => {
 
   const setPost = async (postTitle, postContent) => {
     try {
-      const response = await axios.post("http://localhost:3001/post/", {
+      const response = await axios.post("https://florinsblog.herokuapp.com/post", {
         title: postTitle,
         content: postContent,
       });

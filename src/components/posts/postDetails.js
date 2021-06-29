@@ -10,7 +10,7 @@ const PostDetails = (props) => {
     const deletePostOnClick = async (id) => {
       try {
         axios
-          .delete(`http://localhost:3001/post/${id}`, {
+          .delete(`https://florinsblog.herokuapp.com/post/${id}`, {
             data: { id: id },
           })
           .then((response) => props.sendGetRequest(response.data));

@@ -29,10 +29,12 @@ const EditPost = (props) => {
  
     var data = {title, content };
     try {
-      axios.put(`http://localhost:3001/post/${id}`, data).then((res) => {
-        props.sendGetRequest();
-        window.location.replace("/");
-      });
+      axios
+        .put(`https://florinsblog.herokuapp.com/post/${id}`, data)
+        .then((res) => {
+          props.sendGetRequest();
+          window.location.replace("/");
+        });
     } catch (error) {
       console.log(error);
     }

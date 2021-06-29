@@ -25,28 +25,9 @@ import axios from "axios";
 
 const App = () => {
   const [post, setPost] = useState([]);
-  const [user, setUser] = useState({
-    token: undefined,
-    user: undefined,
-  });
+  const [user, setUser] = useState([]);
+  
 
-  const sendGetRequest = async () => {
-    try {
-      const postsdata = await axios.get("http://localhost:3001/post");
-      setPost(postsdata.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  const sendUserGetRequest = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/users");
-      setUser(response.data);
-      console.log(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
   useEffect(() => {
     sendGetRequest();
   }, []);
@@ -54,16 +35,32 @@ const App = () => {
     sendUserGetRequest();
   }, []);
 
-  // const  checkLoggedIn = async() =>{
-  //   let token = localStorage.getItem("auth-token");
-  //   if(tokenResponse.data) {
-
-  //   }
-  // }
+  const sendGetRequest = async () => {
+    try {
+      const postsdata = await axios.get(
+        "https://florinsblog.herokuapp.com/post"
+      );
+      setPost(postsdata.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const sendUserGetRequest = async () => {
+    try {
+      const response = await axios.get(
+        "https://florinsblog.herokuapp.com/users"
+      );
+      setUser(response.data);
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
 
   return (
     <Router>
-      <Home />
+      <Home/>
       <Switch>
         <Route exact path="/">
           <ShowPosts show={post} />
@@ -112,6 +109,12 @@ const App = () => {
         ></Route>
         <Route path="/editPost/:id">
           {post && <EditPost edit={post} sendGetRequest={sendGetRequest} />}
+        </Route>
+        <Route path="/registerUser">
+          <UserRegister user={user} sendUserGetRequest={sendUserGetRequest} />
+        </Route>
+        <Route path="/login">
+          <Login user={user} sendUserGetRequest={sendUserGetRequest} />
         </Route>
       </Switch>
       {/* <p>Thanks for visiting, goodbye {localStorage.getItem("user")}</p> */}
